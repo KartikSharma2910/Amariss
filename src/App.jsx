@@ -52,17 +52,18 @@ const FormComponent = () => {
               <form onSubmit={handleSubmit}>
                 <input
                   className="email-input"
-                  type="email"
+                  type="number"
                   required
                   value={email}
+                  name="phone"
+                  maxLength={10}
                   onChange={handleChange}
-                  placeholder="Email Address"
-                  name="email-address"
+                  placeholder="Enter you phone number"
                 />
                 <input
                   value="Go"
                   type="submit"
-                  for="email-address"
+                  for="phone"
                   className="email-submit"
                 ></input>
               </form>
