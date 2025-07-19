@@ -11,6 +11,9 @@ const FormComponent = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    const loadingToastId = toast.loading("Registering user...");
+
     try {
       const res = await fetch(
         "https://amariss-backend.onrender.com/api/users/register",
@@ -26,18 +29,26 @@ const FormComponent = () => {
       const data = await res.json();
 
       if (res.status === 201) {
-        toast.success("Registered Successfully");
+        toast.update(loadingToastId, {
+          render: "Registered Successfully",
+          type: "success",
+          isLoading: false,
+          autoClose: 3000,
+        });
       } else {
-        toast.error(data.message || "Registration failed");
+        toast.update(loadingToastId, {
+          render: data.message || "Registration failed",
+          type: "error",
+          isLoading: false,
+          autoClose: 3000,
+        });
       }
     } catch (err) {
-      toast.error("Something went wrong");
-    }
-
-    if (window?.gtag) {
-      window.gtag("event", "form_submit", {
-        event_category: "User Information",
-        event_label: email,
+      toast.update(loadingToastId, {
+        render: "Something went wrong",
+        type: "error",
+        isLoading: false,
+        autoClose: 3000,
       });
     }
 
