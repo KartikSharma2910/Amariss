@@ -1,4 +1,5 @@
 import React, { Fragment, useState } from "react";
+import { toast } from "react-toastify";
 import "./app.css";
 
 const FormComponent = () => {
@@ -16,6 +17,7 @@ const FormComponent = () => {
         event_label: email,
       });
     }
+    toast.success("Registered Successfully");
     setEmail("");
   };
 
@@ -58,14 +60,9 @@ const FormComponent = () => {
                   name="phone"
                   maxLength={10}
                   onChange={handleChange}
-                  placeholder="Enter you phone number"
+                  placeholder="Enter your phone number"
                 />
-                <input
-                  value="Go"
-                  type="submit"
-                  for="phone"
-                  className="email-submit"
-                ></input>
+                <input value="Go" type="submit" className="email-submit" />
               </form>
             </section>
           </article>
