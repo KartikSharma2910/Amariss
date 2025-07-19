@@ -11,13 +11,33 @@ const FormComponent = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    try {
+      const res = await fetch("http://localhost:3001/api/users/register", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ phone: email }),
+      });
+
+      const data = await res.json();
+
+      if (res.status === 201) {
+        toast.success("Registered Successfully");
+      } else {
+        toast.error(data.message || "Registration failed");
+      }
+    } catch (err) {
+      toast.error("Something went wrong");
+    }
+
     if (window?.gtag) {
       window.gtag("event", "form_submit", {
         event_category: "User Information",
         event_label: email,
       });
     }
-    toast.success("Registered Successfully");
+
     setEmail("");
   };
 
